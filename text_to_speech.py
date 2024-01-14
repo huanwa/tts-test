@@ -12,7 +12,7 @@ language_dict = tts_order_voice
 async def text_to_speech_edge(text, language_code):
     voice = language_dict[language_code]
     communicate = edge_tts.Communicate(text, voice)
-    tmp_path = os.path.join(r'/Users/huanwang/flake-textspeech/static', str(uuid.uuid4()) + ".mp3")
+    tmp_path = os.path.join(os.path.dirname(__file__), 'static', str(uuid.uuid4()) + ".mp3")
 
     await communicate.save(tmp_path)
 
