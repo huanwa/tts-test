@@ -1,0 +1,4 @@
+flask
+tts_voice
+edge_tts
+anyio
