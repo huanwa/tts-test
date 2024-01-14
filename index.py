@@ -35,8 +35,11 @@ def text_to_speech():
 
         with open(result_path, 'rb') as audio: 
             audio_file = audio.read() 
-        return Response(audio_file, mimetype="audio/mpeg")
 
+        # Remove the file after reading
+        os.remove(result_path)
+        
+        return Response(audio_file, mimetype="audio/mpeg")
     else:
         return render_template('text_to_speech.html', languages=language_dict.keys())
 
