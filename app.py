@@ -42,4 +42,4 @@ def text_to_speech():
         return render_template('text_to_speech.html', languages=language_dict.keys())
 
 if __name__ == "__main__":
-    app.run(host='luvvoice.com', port=8000e)
+    app.run(host='luvvoice.com', port=8000)
