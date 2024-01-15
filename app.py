@@ -5,6 +5,7 @@ import anyio
 import os, uuid
 
 app = Flask(__name__)
+app.config['SERVER_NAME'] = 'luvvoice.com'
 language_dict = tts_order_voice
 
 async def text_to_speech_edge(text, language_code):
@@ -30,7 +31,7 @@ def text_to_speech():
         text = data['text']
         language_code = data['language_code']
         result_text, result_filename = anyio.run(text_to_speech_edge, text, language_code)
-        result_audio_url=url_for('static', filename=result_filename, _external=True)
+        result_audio_url = url_for('static', filename=result_filename, _external=True, _scheme='https')
         # Return as JSON
         return jsonify({
             'result_text': result_text,
@@ -41,4 +42,4 @@ def text_to_speech():
         return render_template('text_to_speech.html', languages=language_dict.keys())
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='luvvoice.com', port=8000e)
