@@ -2,7 +2,7 @@
 <html>
     <head>
         <!-- Add Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style>
             /* Center the title and push the form and result down */
             .title {
@@ -37,6 +37,21 @@
                 background: linear-gradient(to right, #cddad9, #9db0d0); /* Gradient background */
                 overflow: hidden;
             }
+            /* Style for loader */
+            .loader {
+                display: none;
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                width: 100px;
+                height: 100px;
+                transform: translate(-50%, -50%);
+                z-index: 9999;
+            }
+            .btn-download:hover {
+                background-color: white; 
+                color: #28A745;
+            }
         </style>
     </head>
     <body>
@@ -66,21 +81,34 @@
                 </div>
             </div>
         </div>
+        <!-- Loader -->
+        <div class="loader">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script>
-        $('#myForm').on('submit', function(e) {
-          e.preventDefault();
-          $.ajax({
-              url: '/text_to_speech',
-              method: 'POST',
-              data: $(this).serialize(),
-              success: function(response) {
-                  var html = '<h3 class="result-header">TTS 结果：</h3>' +
-                      '<audio controls src="' + response.result_audio_url + '"></audio>';
-                  $('#result').html(html);
-              }
-          });
-        });
-        </script>
+            $('#myForm').on('submit', function(e) {
+              e.preventDefault();
+              $('.loader').show();
+              $.ajax({
+                  url: '/text_to_speech',
+                  method: 'POST',
+                  data: $(this).serialize(),
+                  success: function(response) {
+                      var html = '<h3 class="result-header">TTS 结果：</h3>' +
+                          '<audio controls src="' + response.result_audio_url + '"></audio>' +
+                          '<br><a class="btn btn-primary" style="margin-top:30px;" href="' + response.result_audio_url + '" download="tts_output.mp3">下载</a>';
+                      $('#result').html(html);
+                      $('.loader').hide();
+                  },
+                  error: function() {
+                      $('.loader').hide();
+                  }
+              });
+            });
+            </script>
     </body>
 </html>
