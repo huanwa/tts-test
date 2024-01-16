@@ -5,7 +5,7 @@ import anyio
 import os, uuid
 
 app = Flask(__name__)
-app.config['SERVER_NAME'] = 'luvvoice.com'
+app.config['SERVER_NAME'] = 'luvvoice.com:8000'
 language_dict = tts_order_voice
 
 async def text_to_speech_edge(text, language_code):
@@ -42,4 +42,4 @@ def text_to_speech():
         return render_template('text_to_speech.html', languages=language_dict.keys())
 
 if __name__ == "__main__":
-    app.run(host='luvvoice.com', port=8000)
+    app.run(host='0.0.0.0', port=8000)
