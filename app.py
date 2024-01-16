@@ -5,16 +5,13 @@ import anyio
 import os, uuid
 
 app = Flask(__name__)
-app.config['SERVER_NAME'] = 'luvvoice.com:8000'
 language_dict = tts_order_voice
 
 async def text_to_speech_edge(text, language_code):
     voice = language_dict[language_code]
     communicate = edge_tts.Communicate(text, voice)
     filename=str(uuid.uuid4()) + ".mp3"
-    static_dir=os.path.join(app.root_path,'static')
-    if not os.path.exists(static_dir):
-        os.makedirs(static_dir)
+    static_dir=os.path.join('/root/fl-tts/static')
     tmp_path = os.path.join(static_dir,filename)
 
     await communicate.save(tmp_path)
@@ -31,7 +28,7 @@ def text_to_speech():
         text = data['text']
         language_code = data['language_code']
         result_text, result_filename = anyio.run(text_to_speech_edge, text, language_code)
-        result_audio_url = url_for('static', filename=result_filename, _external=True, _scheme='https')
+        result_audio_url=url_for('static', filename=result_filename, _external=True)
         # Return as JSON
         return jsonify({
             'result_text': result_text,
@@ -42,4 +39,4 @@ def text_to_speech():
         return render_template('text_to_speech.html', languages=language_dict.keys())
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8000)
+    app.run(debug=True)
