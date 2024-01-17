@@ -100,7 +100,7 @@
                   success: function(response) {
                       var html = '<h3 class="result-header">TTS Result：</h3>' +
                           '<audio controls src="' + response.result_audio_url + '"></audio>' +
-                          '<br><a class="btn btn-primary" style="margin-top:30px;" href="' + response.result_audio_url + '" download="tts_output.mp3">Download</a>';
+                          '<br><a class="btn btn-primary" style="margin-top:30px;" href="' + response.result_audio_url + '" target="_blank">Download</a>';
                       $('#result').html(html);
                       $('.loader').hide();
                   },
