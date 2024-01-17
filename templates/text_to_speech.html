@@ -98,11 +98,17 @@
                   method: 'POST',
                   data: $(this).serialize(),
                   success: function(response) {
-                      var html = '<h3 class="result-header">TTS Result：</h3>' +
-                          '<audio controls src="' + response.result_audio_url + '"></audio>' +
-                          '<br><a class="btn btn-primary" style="margin-top:30px;" href="' + response.result_audio_url + '" target="_blank">Download</a>';
-                      $('#result').html(html);
-                      $('.loader').hide();
+                      var audioUrl = response.result_audio_url;
+                      fetch(audioUrl)
+                        .then(response => response.blob())
+                        .then(blob => {
+                          var blobUrl = URL.createObjectURL(blob);
+                          var html = '<h3 class="result-header">TTS Result：</h3>' +
+                              '<audio controls src="' + blobUrl + '"></audio>' +
+                              '<br><a class="btn btn-primary" style="margin-top:30px;" href="' + blobUrl + '" download="tts_output.mp3">Download</a>';
+                          $('#result').html(html);
+                          $('.loader').hide();
+                        });
                   },
                   error: function() {
                       $('.loader').hide();
