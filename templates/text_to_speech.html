@@ -99,7 +99,7 @@
                   data: $(this).serialize(),
                   success: function(response) {
                       var audioUrl = response.result_audio_url;
-                      fetch(audioUrl)
+                      fetch(audioUrl, {credentials: 'include'})
                         .then(response => response.blob())
                         .then(blob => {
                           var blobUrl = URL.createObjectURL(blob);
