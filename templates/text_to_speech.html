@@ -52,6 +52,21 @@
                 background-color: white; 
                 color: #28A745;
             }
+
+            /* Your existing styles... */
+            /* Add styles for footer */
+            footer {
+                text-align: center;
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background: linear-gradient(to right, #cddad9, #9db0d0); /* Same as body background */
+                color: black;
+                text-align: center;
+                padding: 10px 0;
+                border-top: 1px solid #ccc; /* Add a top border line */
+            }
         </style>
     </head>
     <body>
@@ -88,6 +103,10 @@
             </div>
         </div>
 
+        <footer>
+            © Copyright 2024. luvvoice All rights reserved.
+        </footer>
+
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script>
             $('#myForm').on('submit', function(e) {
@@ -110,5 +129,7 @@
               });
             });
             </script>
+
+            
     </body>
 </html>
