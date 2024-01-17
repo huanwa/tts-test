@@ -55,28 +55,28 @@
         </style>
     </head>
     <body>
-        <h1 class="title">多语言文本生成语音</h1>
+        <h1 class="title">Text-to-Speech (TTS) Engine with Over 200 Voices</h1>
         <div class="container">
             <div class="row">
                 <div class="col form-wrapper">
                     <form id="myForm">
                         <div class="form-group">
-                            <label>请输入文本：</label><br>
+                            <label>Enter Text:</label><br>
                             <textarea class="form-control" name="text" cols="40" rows="5"></textarea><br>
-                            <label>请选择语言和声音：</label><br>
-                            <p class="note">选择的语言必须和文本语言一致</p>
+                            <label>Select Language and Voice:</label><br>
+                            <p class="note">The selected language must match the text language</p>
                             <select class="form-control" name="language_code">
                                 {% for language in languages %}
                                     <option value="{{ language }}">{{ language }}</option>
                                 {% endfor %}
                             </select><br>
                         </div>
-                        <input type="submit" class="btn btn-primary" value="提交">
+                        <input type="submit" class="btn btn-primary" value="Submit">
                     </form>
                 </div>
                 <div class="col result-wrapper">
                     <div id="result">
-                        <h3 class="result-header">TTS 结果：</h3>
+                        <h3 class="result-header">TTS Result：</h3>
                     </div>
                 </div>
             </div>
@@ -98,9 +98,9 @@
                   method: 'POST',
                   data: $(this).serialize(),
                   success: function(response) {
-                      var html = '<h3 class="result-header">TTS 结果：</h3>' +
+                      var html = '<h3 class="result-header">TTS Result：</h3>' +
                           '<audio controls src="' + response.result_audio_url + '"></audio>' +
-                          '<br><a class="btn btn-primary" style="margin-top:30px;" href="' + response.result_audio_url + '" download="tts_output.mp3">下载</a>';
+                          '<br><a class="btn btn-primary" style="margin-top:30px;" href="' + response.result_audio_url + '" download="tts_output.mp3">Download</a>';
                       $('#result').html(html);
                       $('.loader').hide();
                   },
