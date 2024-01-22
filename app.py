@@ -38,5 +38,11 @@ def text_to_speech():
     else:
         return render_template('text_to_speech.html', languages=language_dict.keys())
 
+
+@app.route('/tos', methods=['GET']) 
+def tos():
+    return render_template('terms_of_service.html')
+
+
 if __name__ == "__main__":
     app.run(debug=True)
