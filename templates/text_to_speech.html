@@ -64,21 +64,25 @@
                 <h1 class="text-3xl font-semibold ml-2">Luvvoice</h1>
             </a>
         </div>
-        <div class="bg-gray-lighter md:h-full md:flex-1 bg-cover bg-center  bg-no-repeat" style="background-image: url('/static/IMG_202401211535_874x757.png'); transform: scale(0.73);  margin-right: -4rem;">
+        <div class="bg-gray-lighter md:h-full md:flex-1 bg-cover bg-center  bg-no-repeat" style="background-image: url('/static/IMG_202401211535_874x757.png'); transform: scale(0.74);  margin-right: -4rem;">
         </div>
         <div class="bg-orange-100 text-orange-900 md:h-full w-full md:flex-1 flex justify-center items-center" style="margin-left: -7rem;">
             <div class="px-8 md:px-16">
                 <form id="myForm">
                     <div class="form-group">
                         <label>Enter text convert into speech:</label><br>
-                        <textarea class="form-control" id="text" name="text" cols="70" rows="16"></textarea><br>
+                        <textarea class="form-control" id="text" name="text" cols="60" rows="13"></textarea><br>
                         <label>Select Language and Voice:</label><br>
                         <p class="note">The selected language must match the text language.</p>
-                        <select class="form-control" id="language_code" name="language_code">
-                            {% for language in languages %}
-                                <option value="{{ language }}">{{ language }}</option>
+                        <select class="form-control" name="language_code">
+                            {% for language_description, voices in languages.items() %}
+                                <optgroup label="{{ language_description }}">
+                                    {% for description, code in voices %}
+                                        <option value="{{ code }}">{{ description }}</option>
+                                    {% endfor %}
+                                </optgroup>
                             {% endfor %}
-                        </select><br>
+                            </select><br>
                     </div>
                     <input type="submit" class="btn btn-primary mt-3 px-4 py-2 rounded text-white bg-black hover:bg-gray-800" id="submitBtn" value="Submit">
                     <a class="btn btn-primary mt-3 px-4 py-2 rounded text-white bg-black hover:bg-gray-800" id="downloadBtn" href="#" target="_blank" download disabled>Download</a>
@@ -92,6 +96,28 @@
         <h2 class="text-2xl md:text-4xl max-w-2xl mx-auto text-center text-gray-900 leading-normal mb-12" style="margin-top: -5%;">Text to speech for free</h2>
         <p class="text-sm md:text-base leading-normal max-w-xl text-center mx-auto text-gray-800 mb-8">Luvvoice provides a complimentary online service that converts text into speech(TTS) for free. Simply input your text, choose a voice, and either download the resulting mp3 file or listen to it directly.</p>
         <p class="text-sm md:text-base leading-normal max-w-xl text-center mx-auto text-gray-800">Our platform boasts over 200 standard voices and lifelike voices, spanning more than 50 languages globally. This is ideal for educational online content, enhancing presentations, creating YouTube video vocal content, and improving your website's user-friendliness.</p>
+    </div>
+
+
+    <div class="w-full text-center py-4">
+        <h1 class="text-lg font-bold mb-4">Choose a language:</h1>
+        <table class="mx-auto border-collapse border border-gray-400">
+            <tbody>
+                {% for language_description in languages.keys() %}
+                {% if loop.index0 is divisibleby 5 %}
+                <tr>
+                {% endif %}
+                    <td class="border border-gray-400 px-4 py-2">
+                        <a href="{{ url_for('language_route', language=language_description) }}">
+                            {{ language_description }}
+                        </a>
+                    </td>
+                {% if loop.index is divisibleby 5 or loop.last %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
     <div class="px-6 py-12 md:px-12">
