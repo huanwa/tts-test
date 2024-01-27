@@ -46,7 +46,7 @@ def text_to_speech():
         })
 
     else:
-        return render_template('text_to_speech.html', languages=languages)
+        return render_template('index.html', languages=languages)
     
 
 @app.route('/tos', methods=['GET']) 
@@ -60,7 +60,7 @@ def language_route(language):
     # 根据选择的语言显示对应的声音
     voices = languages.get(language)
     if voices:
-        return render_template('tts_page.html', selected_language=language, languages=languages, voices=voices)
+        return render_template('language..html', selected_language=language, languages=languages, voices=voices)
     else:
         return 'Language not supported', 404
 
@@ -72,7 +72,7 @@ def voice_route(voice_code):
         for desc, code in voices:
             if code == voice_code:
                 # 渲染和特定语言相关的声音列表
-                return render_template('tts_page.html', selected_language=language, languages=languages, voices=languages[language], selected_voice=voice_code)
+                return render_template('language..html', selected_language=language, languages=languages, voices=languages[language], selected_voice=voice_code)
     return 'Voice code not supported', 404
 
 
