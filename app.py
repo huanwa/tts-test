@@ -83,7 +83,7 @@ def ads_txt():
 
 @app.route('/privacy-policy', methods=['GET'])
 def privacy_policy():
-    return send_file('privacy-policy.html')
+    return render_template('privacy-policy.html')
 
 
 if __name__ == "__main__":
