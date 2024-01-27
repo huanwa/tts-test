@@ -81,5 +81,10 @@ def ads_txt():
     return app.send_static_file('ads.txt')
 
 
+@app.route('/privacy-policy')
+def privacy_policy():
+    return send_file('privacy-policy.html')
+
+
 if __name__ == "__main__":
     app.run(debug=True)
