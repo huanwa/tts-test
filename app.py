@@ -31,7 +31,7 @@ async def text_to_speech_edge(text, language_code):
 
 
 @app.route('/', methods=['GET', 'POST'])
-@app.route('/text_to_speech', methods=['GET', 'POST'])
+#@app.route('/text_to_speech', methods=['GET', 'POST'])
 def text_to_speech():
     if request.method == 'POST':
         data = request.form
