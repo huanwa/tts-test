@@ -30,7 +30,7 @@ async def text_to_speech_edge(text, language_code):
 # 注意我返回的是文件名而不是完整路径，以便于下面生成URL
 
 
-#@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/text_to_speech', methods=['GET', 'POST'])
 def text_to_speech():
     if request.method == 'POST':
