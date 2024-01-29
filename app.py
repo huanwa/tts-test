@@ -30,23 +30,25 @@ async def text_to_speech_edge(text, language_code):
 # 注意我返回的是文件名而不是完整路径，以便于下面生成URL
 
 
-@app.route('/', methods=['GET', 'POST'])
-@app.route('/text_to_speech', methods=['GET', 'POST'])
-def text_to_speech():
-    if request.method == 'POST':
-        data = request.form
-        text = data['text']
-        language_code = data['language_code']
-        result_text, result_filename = anyio.run(text_to_speech_edge, text, language_code)
-        result_audio_url=url_for('static', filename=result_filename, _external=True)
-        # Return as JSON
-        return jsonify({
-            'result_text': result_text,
-            'result_audio_url': result_audio_url
-        })
+@app.route('/', methods=['GET'])
+def index():
+    # 只需负责呈现主页面
+    return render_template('index.html', languages=languages)
 
-    else:
-        return render_template('index.html', languages=languages)
+
+@app.route('/text_to_speech', methods=['POST'])
+def handle_text_to_speech():
+    # 处理文本到语音转换
+    data = request.form
+    text = data['text']
+    language_code = data['language_code']
+    result_text, result_filename = anyio.run(text_to_speech_edge, text, language_code)
+    result_audio_url = url_for('static', filename=result_filename, _external=True)
+    # 返回JSON
+    return jsonify({
+        'result_text': result_text,
+        'result_audio_url': result_audio_url
+    })
     
 
 @app.route('/tos', methods=['GET']) 
