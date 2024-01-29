@@ -92,14 +92,21 @@
             <div class="px-8 md:px-16">
                 <form id="myForm">
                     <div class="form-group">
-                        <label>Enter text convert into speech:</label><br>
+                        <label>Enter text to convert into speech:</label><br>
                         <textarea class="form-control" id="text" name="text" cols="70" rows="16"></textarea><br>
+                        
                         <label>Select a voice for {{ language }}:</label><br>
                         <p class="note">Please select one of the available voices for your chosen language.</p>
+                        
                         <select class="form-control" id="language_code" name="language_code">
                             <option value="">Select a voice...</option>
                             {% for description, code in voices %}
-                            <option value="{{ code }}">{{ description }}</option>
+                                {% if loop.first %}
+                                <!-- 标记第一个选项为默认选中 -->
+                                <option value="{{ code }}" selected>{{ description }}</option>
+                                {% else %}
+                                <option value="{{ code }}">{{ description }}</option>
+                                {% endif %}
                             {% endfor %}
                         </select><br>
                     </div>
