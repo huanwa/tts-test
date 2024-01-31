@@ -21,7 +21,7 @@ async def text_to_speech_edge(text, language_code):
     voice = language_code
     communicate = edge_tts.Communicate(text, voice)
     filename=str(uuid.uuid4()) + ".mp3"
-    static_dir=os.path.join('/root/fl-tts/static')
+    static_dir=os.path.join('/var/www/fl-tts/static')
     tmp_path = os.path.join(static_dir,filename)
 
     await communicate.save(tmp_path)
